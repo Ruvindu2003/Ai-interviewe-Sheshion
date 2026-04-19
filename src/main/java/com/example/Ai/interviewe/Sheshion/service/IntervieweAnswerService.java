@@ -2,13 +2,11 @@ package com.example.Ai.interviewe.Sheshion.service;
 
 import com.example.Ai.interviewe.Sheshion.model.IntervieweAnswer;
 import com.example.Ai.interviewe.Sheshion.model.IntervieweQuestions;
-import com.example.Ai.interviewe.Sheshion.model.IntervieweSession;
 import com.example.Ai.interviewe.Sheshion.repository.IntervieweAnswerRepository;
 import com.example.Ai.interviewe.Sheshion.repository.IntervieweQuestionRepository;
 import com.example.Ai.interviewe.Sheshion.repository.IntervieweSessionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +17,7 @@ public class IntervieweAnswerService {
     private final IntervieweSessionRepository sessionRepository;
     private final AiService aiService;
 
-    public IntervieweAnswer submitAnswer(Long questionId, String answerText) {
+    public IntervieweAnswer IntervieweAnswersubmitAnswer(Long questionId, String answerText) {
         IntervieweQuestions question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new RuntimeException("Question not found"));
 
@@ -27,7 +25,7 @@ public class IntervieweAnswerService {
         String evaluation = aiService.evaluateAnswer(question.getQuestionText(), answerText);
         // Assuming format: [Score]/10 | [Feedback]
         String[] parts = evaluation.split("\\|");
-        Double score = 0.0;
+        double score = 0.0;
         String feedback = "";
         if (parts.length >= 1) {
             try {
