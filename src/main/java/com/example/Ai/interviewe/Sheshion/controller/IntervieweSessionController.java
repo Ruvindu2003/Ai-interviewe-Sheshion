@@ -24,6 +24,23 @@ public class IntervieweSessionController {
         return ResponseEntity.ok(session);
     }
 
+    private final com.example.Ai.interviewe.Sheshion.service.AiService aiService;
+
+    @PostMapping("/{id}/interactive-response")
+    public ResponseEntity<String> getInteractiveResponse(
+            @PathVariable Long id,
+            @RequestBody java.util.Map<String, String> payload) {
+        
+        IntervieweSession session = sessionService.getSession(id);
+        String cvContent = "Candidate: " + session.getCandidateName();
+        
+        String lastAnswer = payload.getOrDefault("lastAnswer", "");
+        String conversationHistory = payload.getOrDefault("history", "");
+        
+        String aiResponse = aiService.getInteractiveInterviewResponse(cvContent, conversationHistory, lastAnswer);
+        return ResponseEntity.ok(aiResponse);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<IntervieweSession> getSession(@PathVariable Long id) {
         return ResponseEntity.ok(sessionService.getSession(id));

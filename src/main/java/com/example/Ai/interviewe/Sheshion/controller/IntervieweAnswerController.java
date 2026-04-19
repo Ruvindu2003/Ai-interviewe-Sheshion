@@ -19,7 +19,7 @@ public class IntervieweAnswerController {
             @RequestParam("questionId") Long questionId,
             @RequestBody String answerText) {
         
-        IntervieweAnswer answer = answerService.submitAnswer(questionId, answerText);
+        IntervieweAnswer answer = answerService.IntervieweAnswersubmitAnswer(questionId, answerText);
         return ResponseEntity.ok(answer);
     }
 }
