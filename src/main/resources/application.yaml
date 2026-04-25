@@ -7,9 +7,9 @@ spring:
       - org.springframework.ai.model.google.genai.autoconfigure.chat.GoogleGenAiChatAutoConfiguration
 
   datasource:
-    url: jdbc:mysql://localhost:3306/ai_interview_db?createDatabaseIfNotExist=true
-    username: root
-    password: 1234 # Replace with your MySQL password
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/ai_interview_db?createDatabaseIfNotExist=true}
+    username: ${MYSQLUSER:root}
+    password: ${MYSQLPASSWORD:1234}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -20,11 +20,13 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 
-
   ai:
     openai:
-      api-key: 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
+      api-key: ${OPENROUTER_API_KEY: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}
       base-url: https://openrouter.ai/api
       chat:
         options:
           model: google/gemini-3-flash-preview
+
+server:
+  port: ${PORT:8080}
