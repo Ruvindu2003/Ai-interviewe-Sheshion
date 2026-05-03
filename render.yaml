@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: ai-interview-backend
+    runtime: docker
+    plan: free
+    region: singapore
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: MYSQL_URL
+        sync: false
+        placeholder: "jdbc:mysql://[HOST]:[PORT]/defaultdb?ssl-mode=REQUIRED"
+      - key: MYSQLUSER
+        sync: false
+        placeholder: "avnadmin"
+      - key: MYSQLPASSWORD
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+        placeholder: "sk-or-v1-..."
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
